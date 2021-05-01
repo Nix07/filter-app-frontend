@@ -1,0 +1,93 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  font-size: 12px;
+  line-height: 30px;
+  color: #777;
+}
+
+.container {
+  max-width: fit-content;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+#userdata {
+  padding: 25px;
+}
+
+#userdata h3 {
+  display: block;
+  font-size: 30px;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+#userdata h4 {
+  margin: 5px 0 15px;
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+fieldset {
+  border: medium none !important;
+  margin: 0 0 10px;
+  padding: 0;
+  width: 100%;
+}
+
+#userdata button[type="submit"] {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: #4CAF50;
+  color: #FFF;
+  margin: 0 0 5px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+#userdata button[type="submit"]:active {
+    background: #43A047;
+    -webkit-transition: background 0.2s ease-in-out;
+    -moz-transition: background 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+#userdata button[type="submit"]:disabled {
+    background: #929292;
+    border: none;
+}
+
+
+.radio-container .mat-radio-button {
+    margin: 0 12px;
+}
+
+.required {
+    color: red;
+}
+
+.alert-danger {
+    text-align: center;
+}
+
+::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  line-height: 30px !important;
+}

@@ -1,0 +1,130 @@
+<div class="container" *ngIf="!surveyFormSubmitted && !loadSpinner">
+    <form id="survey" action="" method="post" [formGroup]="surveyDataForm" (ngSubmit)="onSubmit()">
+        <h3>Post-Study Survey Form</h3>
+        <h4>Please provide the following information</h4>
+
+        <fieldset>
+            <div style="display: flex; justify-content: space-between;">
+                <span style="max-width: 70%;">
+                    Do you remember the name of filter that you choose for first image?*
+                </span>
+                <mat-button-toggle-group name="condition" aria-label="Condition" formControlName="firstFilterFlag"
+                    style="height: 34px;">
+                    <mat-button-toggle value="Y" style="line-height: 20px;">Yes</mat-button-toggle>
+                    <mat-button-toggle value="N" style="line-height: 20px;">No</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+            <div *ngIf="firstFilterFlag.value == 'Y'" style="margin-top: 10px;">
+                <label style="margin-right: 12px;">Select Filter</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Filter</mat-label>
+                    <mat-select formControlName="firstFilter">
+                        <mat-option *ngFor="let filter of filters" value="{{ filter }}">{{ filter }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+
+        <fieldset>
+            <div style="display: flex; justify-content: space-between;">
+                <span style="max-width: 70%;">
+                    Do you remember the name of filter that you choose for second image?*
+                </span>
+                <mat-button-toggle-group name="condition" aria-label="Condition" formControlName="secondFilterFlag"
+                    style="height: 34px;">
+                    <mat-button-toggle value="Y" style="line-height: 20px;">Yes</mat-button-toggle>
+                    <mat-button-toggle value="N" style="line-height: 20px;">No</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+            <div *ngIf="secondFilterFlag.value == 'Y'" style="margin-top: 10px;">
+                <label style="margin-right: 12px;">Select Filter</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Filter</mat-label>
+                    <mat-select formControlName="secondFilter">
+                        <mat-option *ngFor="let filter of filters" value="{{ filter }}">{{ filter }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <label>On a scale of 1 (<span class="font-weight-bold">not</span> at all useful) to 5 (essential), how much
+                would you rate the usefulness of the filter names in choosing a filter?*</label>
+            <div class="ratings">
+                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+            </div>
+            <mat-radio-group aria-label="Select an option" formControlName="usefulness">
+                <mat-radio-button value="1"></mat-radio-button>
+                <mat-radio-button value="2"></mat-radio-button>
+                <mat-radio-button value="3"></mat-radio-button>
+                <mat-radio-button value="4"></mat-radio-button>
+                <mat-radio-button value="5"></mat-radio-button>
+            </mat-radio-group>
+        </fieldset>
+
+        <fieldset>
+            <div style="display: flex; justify-content: space-between;">
+                <span style="max-width: 70%;">
+                    Would it be useful to you, if the filter names were more self-explanatory about its effect? Eg.
+                    Faded, Bright etc*
+                </span>
+                <mat-button-toggle-group name="condition" aria-label="Condition" formControlName="firstQuestion"
+                    style="height: 34px;">
+                    <mat-button-toggle value="Y" style="line-height: 20px;">Yes</mat-button-toggle>
+                    <mat-button-toggle value="N" style="line-height: 20px;">No</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div style="display: flex; justify-content: space-between;">
+                <span style="max-width: 70%;">
+                    Would it be useful to you, if there was a textual description for each filter’s effect?*
+                </span>
+                <mat-button-toggle-group name="condition" aria-label="Condition" formControlName="secondQuestion"
+                    style="height:34px;">
+                    <mat-button-toggle value="Y" style="line-height: 20px;">Yes</mat-button-toggle>
+                    <mat-button-toggle value="N" style="line-height: 20px;">No</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <mat-form-field style="width: 100%;">
+                <mat-label>Any other comment regarding filters or this study?</mat-label>
+                <textarea matInput formControlName="comment"></textarea>
+            </mat-form-field>
+            <div *ngIf="comment.invalid && (comment.dirty || comment.touched)" class="alert alert-danger">
+                <div *ngIf="comment.errors.maxlength">
+                    Comment must be less than 280 characters. Please email for additional comments.
+                </div>
+                <div *ngIf="comment.errors.minlength">
+                    Comment must be greater than 20 characters.
+                </div>
+            </div>
+            <div *ngIf="comment.invalid" class="alert alert-warning text-center">
+                <div *ngIf="comment.errors.required">
+                    Please provide a description of how the filter names were useful in choosing a filter.
+                </div>
+            </div>
+        </fieldset>
+
+        <p class="required">* means required field</p>
+        <fieldset>
+            <button type="submit" [disabled]="!surveyDataForm.valid">Submit</button>
+        </fieldset>
+    </form>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="loadSpinner && !surveyFormSubmitted">
+    <div class="spinner-border m-5" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>  
+
+<div *ngIf="surveyFormSubmitted && !loadSpinner" style="margin-top: 35vh;">
+    <h3 class="text-center">Your responses have been successfully submitted!</h3>
+    <h4 class="text-center" style="padding: 0 25px;">Thanks for your time and interest. Please do share it with your friends and family, especially if you know anyone with color-vision deficiency...</h4>
+    <p class="text-center" style="padding: 0 25px;">(If Applicable) Redeem Survey Code with one click: <a href="https://www.surveycircle.com/KRAK-PPJ1-3G1L-J37H" target="_blank">https://www.surveycircle.com/KRAK-PPJ1-3G1L-J37H</a></p>
+</div>

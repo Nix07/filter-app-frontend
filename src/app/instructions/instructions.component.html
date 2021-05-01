@@ -1,0 +1,118 @@
+<div class="container" *ngIf="!instructionsCompleted">
+  <h3>Welcome!</h3>
+  <h4>Please read the following instructions carefully:</h4>
+  <ul>
+    <li>
+      <p>
+        This study is part of a controlled experiment to better understand the efficacy of current design practices for
+        instagram filters.
+      </p>
+    </li>
+    <li>
+      <p>
+        The expected completion time is <span class="font-weight-bold">3-5 minutes</span>. And your sincere contribution
+        could lend you a gift voucher worth of <span class="font-weight-bold">$10 USD</span> and help make the life of
+        color blind people easier.
+      </p>
+    </li>
+    <li>
+      <p>
+        This study will consist of the following three sections.
+      </p>
+    </li>
+  </ul>
+
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Pre-Study User Form
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>
+        In this section, you will be asked to provide your details like name, sex, age group, country, color blindness
+        and email address. In addition to that, you need to provide information about your current experience
+        with instagram filters.
+      </p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Choosing Appropriate Filter Task
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>
+        In this section, you will be shown two different images. For each one, you need to select a filter, that you
+        think is most suitable for that image. There is no time constraint and you can try as many filters as you want.
+      </p>
+      <p>
+        Based on the collected data, filters that get selected most frequently will be considered as the most
+        appropriate one for both the images. And three random participants who select the most appropriate filters for
+        both images will receive the gift voucher.
+      </p>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Post-Study User Survey
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>
+        In this section, you will be asked to share details of your task completion experience in a survey.
+      </p>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <ul>
+    <li>
+      <p>
+        Please complete all three sections in a <span class="font-weight-bold">single continuous setting</span>, rather than completing half once and then
+        returning back to complete the rest.
+      </p>
+    </li>
+    <li>
+      <p>
+        After the submission of a section, it cannot be accessed again. Please <span class="font-weight-bold">DO
+          NOT</span> refresh or press back button. It will restart the application, and your incomplete submission data
+        will get recorded.
+      </p>
+    </li>
+    <li>
+      <p>
+        You are kindly requested not to share the details of your response, either publicly or privately, with anyone at
+        least till the completion of the study.
+      </p>
+    </li>
+    <li>
+      <p>Please contact <span class="font-weight-bold">Nikhil Prakash</span> at <span
+          class="email">nikhil07prakash@gmail.com</span> if you have any questions or problems about the
+        study.</p>
+    </li>
+  </ul>
+
+  <div>
+    <h4>Privacy Statement</h4>
+    <ul>
+      <li>
+        <p>
+          All the data collected through this study will be kept confidential and will <span
+            class="font-weight-bold">NOT</span> be shared with anyone.
+        </p>
+      </li>
+      <li>
+        <p>You may choose to discontinue at any point during the process.</p>
+      </li>
+    </ul>
+  </div>
+
+  <mat-checkbox [(ngModel)]="accptedPrivacyPolicy">
+    I have read instructions & agree to privacy statement.
+  </mat-checkbox>
+  <button type="submit" (click)="onSubmit()" [disabled]="!accptedPrivacyPolicy">Go to Pre-Study Form</button>
+</div>
+
+<div *ngIf="instructionsCompleted">
+  <app-user-data-form [instructionReadingTime]="instructionReadingTime"></app-user-data-form>
+</div>

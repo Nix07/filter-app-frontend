@@ -1,0 +1,157 @@
+<div class="container" *ngIf="!userDataFormSubmitted && !loadSpinner">
+    <form id="userdata" action="" method="post" [formGroup]="userDataForm" (ngSubmit)="onSubmit()">
+        <h3>Pre-Study User Form</h3>
+        <h4>Please provide the following information</h4>
+
+        <fieldset>
+            <p style="height: 7vh;">
+                <mat-form-field appearance="outline" style="width: 85vw">
+                    <mat-label>Full name*</mat-label>
+                    <input matInput placeholder="" formControlName="fullName">
+                </mat-form-field>
+            </p>
+            <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)" class="alert alert-danger">
+                <div *ngIf="fullName.errors.required">
+                    Full name field is required
+                </div>
+                <div *ngIf="fullName.errors.minlength">
+                    Full name must be at least 5 characters long
+                </div>
+                <div *ngIf="fullName.errors.maxlength">
+                    Full name must be less than 35 characters
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div class="radio-container">
+                <div>
+                    <label>Sex</label>
+                    <mat-radio-group formControlName="sex">
+                        <mat-radio-button value="M">Male</mat-radio-button>
+                        <mat-radio-button value="F">Female</mat-radio-button>
+                        <mat-radio-button value="O">Other</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div>
+                <label style="margin-right: 12px;">Age Group*</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Select</mat-label>
+                    <mat-select formControlName="ageGroup">
+                        <mat-option value="1">Below 18</mat-option>
+                        <mat-option value="2">18-24</mat-option>
+                        <mat-option value="3">25-39</mat-option>
+                        <mat-option value="4">40-60</mat-option>
+                        <mat-option value="5">Above 60</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngIf="ageGroup.invalid && (ageGroup.dirty || ageGroup.touched)" class="alert alert-danger">
+                <div *ngIf="ageGroup.errors.required">
+                    Age Group field is required
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div>
+                <label style="margin-right: 28px;">Country*</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Select</mat-label>
+                    <mat-select formControlName="country">
+                        <mat-option *ngFor="let nation of countries" value="{{nation.code}}">{{nation.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert alert-danger">
+                <div *ngIf="country.errors.required">
+                    Country field is required
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div style="display: flex; justify-content: space-between;">
+                <span style="max-width: 70%;">
+                    Do you have any form of color-vision deficiency or color blindness?*
+                </span>
+                <mat-button-toggle-group name="condition" aria-label="Condition" formControlName="colorBlindness"
+                    style="height: 34px;">
+                    <mat-button-toggle value="Y" style="line-height: 20px;">Yes</mat-button-toggle>
+                    <mat-button-toggle value="N" style="line-height: 20px;">No</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div style="display: flex; justify-content: space-between; ">
+                <span style="max-width: 70%;">
+                    Have you ever used instagram filters before?*
+                </span>
+                <mat-button-toggle-group name="condition" aria-label="Condition" formControlName="experience"
+                    style="height: 34px;">
+                    <mat-button-toggle value="Y" style="line-height: 20px;">Yes</mat-button-toggle>
+                    <mat-button-toggle value="N" style="line-height: 20px;">No</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <p style="height: 7vh;">
+                <mat-form-field appearance="outline" style="width: 85vw">
+                    <mat-label>Number of times you used instagram filters last week*</mat-label>
+                    <input type="number" matInput placeholder="" formControlName="lastWeekUsage">
+                </mat-form-field>
+            </p>
+            <div *ngIf="lastWeekUsage.invalid && (lastWeekUsage.dirty || lastWeekUsage.touched)"
+                class="alert alert-danger">
+                <div *ngIf="lastWeekUsage.errors.required">
+                    Last week usage field is required
+                </div>
+                <div *ngIf="lastWeekUsage.errors.pattern">
+                    Please enter numeric values only
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <p style="height: 7vh;">
+                <mat-form-field appearance="outline" style="width: 85vw">
+                    <mat-label>Email address*</mat-label>
+                    <input matInput placeholder="" formControlName="email">
+                </mat-form-field>
+            </p>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                <div *ngIf="email.errors.required">
+                    Email is required
+                </div>
+                <div *ngIf="email.errors.email">
+                    Please enter a valid email address
+                </div>
+                <div *ngIf="email.errors.maxlength">
+                    Email address must be less than 40 characters
+                </div>
+            </div>
+        </fieldset>
+
+        <p class="required">* means required field</p>
+        <fieldset>
+            <button type="submit" [disabled]="!userDataForm.valid">Submit</button>
+        </fieldset>
+    </form>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="loadSpinner && !userDataFormSubmitted">
+    <div class="spinner-border m-5" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div *ngIf="userDataFormSubmitted && !loadSpinner">
+    <app-filter-experiment [userId]="userId" [levelOrder]="levelOrder"></app-filter-experiment>
+</div>
